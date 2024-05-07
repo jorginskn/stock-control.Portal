@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -7,7 +8,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
   loginCard = true;
-  constructor() {}
+
+  constructor(private formBuilder: FormBuilder) {}
+
+  loginForm = this.formBuilder.group({
+    email: ['', Validators.required],
+    password: ['', Validators.required],
+  });
+
+  signupForm = this.formBuilder.group({
+      name:['', Validators.required],
+      email:['', Validators.required],
+      password:['', Validators.required],
+  });
 
   ngOnInit() {}
+
+  onSubmitLoginForm(): void {
+    console.log(this.loginForm.valid)
+  }
+
+  onSubmitsignUp(): void {
+
+    console.log('Cadastrado',this.signupForm)
+  }
 }
