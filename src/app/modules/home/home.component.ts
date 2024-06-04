@@ -1,6 +1,7 @@
 import { AuthService } from './../../services/user/Auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
 import { AuthRequest } from 'src/app/models/interfaces/user/Auth/AuthRequest';
@@ -19,7 +20,8 @@ export class HomeComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private cookieService: CookieService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router
   ) {}
 
   loginForm = this.formBuilder.group({
@@ -42,6 +44,7 @@ export class HomeComponent implements OnInit {
           if (response) {
             this.cookieService.set('USER_INFO', response?.token);
             this.loginForm.reset();
+            this.router.navigate(['/dashboard'])
             this.messageService.add({
               severity: 'success',
               summary: 'Sucesso',
