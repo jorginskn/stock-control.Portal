@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { GetAllProductsResponse } from 'src/app/models/interfaces/products/request/GetAllProductsResponse';
+import { ProductsDataTransferService } from 'src/app/services/products/products-data-transfer.service';
 import { ProductsService } from 'src/app/services/products/products.service';
 
 @Component({
@@ -13,6 +14,7 @@ export class DashboardHomeComponent implements OnInit {
 
   constructor(
     private productsService: ProductsService,
+    private producstDtService: ProductsDataTransferService,
     private messageService: MessageService
   ) {}
 
@@ -24,9 +26,8 @@ export class DashboardHomeComponent implements OnInit {
     this.productsService.getAllProducts().subscribe({
       next: (response) => {
         if (response.length > 0) {
-          debugger
           this.productList = response;
-          console.log('DADOS DO PRODUTO', this.productList);
+          this.producstDtService.setProductsDatas(this.productList);
         }
       },
       error: (err) => {
