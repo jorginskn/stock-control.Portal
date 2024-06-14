@@ -1,9 +1,10 @@
 import { AuthService } from './../../services/user/Auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
+import { Subject, takeUntil } from 'rxjs';
 import { AuthRequest } from 'src/app/models/interfaces/user/Auth/AuthRequest';
 import { SignupUserRequest } from 'src/app/models/interfaces/user/SignupUserRequest';
 import { SignupUserResponse } from 'src/app/models/interfaces/user/SignupUserResponse';
@@ -13,7 +14,8 @@ import { SignupUserResponse } from 'src/app/models/interfaces/user/SignupUserRes
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
+  private destroy$ = new Subject<void>();
   loginCard = true;
 
   constructor(
@@ -39,30 +41,33 @@ export class HomeComponent implements OnInit {
 
   onSubmitLoginForm(): void {
     if (this.loginForm.value && this.loginForm.valid) {
-      this.authService.authUser(this.loginForm.value as AuthRequest).subscribe({
-        next: (response) => {
-          if (response) {
-            this.cookieService.set('USER_INFO', response?.token);
-            this.loginForm.reset();
-            this.router.navigate(['/dashboard'])
+      this.authService
+        .authUser(this.loginForm.value as AuthRequest)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next: (response) => {
+            if (response) {
+              this.cookieService.set('USER_INFO', response?.token);
+              this.loginForm.reset();
+              this.router.navigate(['/dashboard']);
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Sucesso',
+                detail: `Bem vindo de volta ${response?.name}!`,
+                life: 2000,
+              });
+            }
+          },
+          error: (err) => {
             this.messageService.add({
-              severity: 'success',
-              summary: 'Sucesso',
-              detail: `Bem vindo de volta ${response?.name}!`,
+              severity: 'error',
+              summary: 'Erro',
+              detail: `Erro ao fazer login! Email ou senha estão incorretos.`,
               life: 2000,
             });
-          }
-        },
-        error: (err) => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Erro',
-            detail: `Erro ao fazer login! Email ou senha estão incorretos.`,
-            life: 2000,
-          });
-          console.log(err);
-        },
-      });
+            console.log(err);
+          },
+        });
     }
   }
 
@@ -95,5 +100,10 @@ export class HomeComponent implements OnInit {
           },
         });
     }
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
