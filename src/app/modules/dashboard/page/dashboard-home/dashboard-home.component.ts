@@ -59,7 +59,6 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
         '--text-color-secondary'
       );
       const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
-      debugger;
       this.productsChartDatas = {
         labels: this.productList.map((element) => element.name),
         datasets: [
