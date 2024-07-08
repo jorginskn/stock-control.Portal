@@ -6,5 +6,7 @@ export interface GetAllProductsResponse{
     stock: number;
     imageUrl: string;
     categoryId:number;
+    categoryName:string;
+
 
 }

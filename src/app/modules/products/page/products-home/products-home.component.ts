@@ -39,6 +39,7 @@ export class ProductsHomeComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (response) => {
+          console.log(response)
           if (response.length > 0) {
             this.productList = response;
           }

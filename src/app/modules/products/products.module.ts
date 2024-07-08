@@ -17,16 +17,17 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { TooltipModule } from 'primeng/tooltip';
+
 import { DropdownModule } from 'primeng/dropdown';
 import { ConfirmationService } from 'primeng/api';
 import { ProductsHomeComponent } from './page/products-home/products-home.component';
 import { RouterModule } from '@angular/router';
 import { PRODUCTS_ROUTES } from './products.routing';
+import { ProductsTableComponent } from './components/products-table/products-table.component';
 
 @NgModule({
-  declarations: [
-    ProductsHomeComponent
-  ],
+  declarations: [ProductsHomeComponent, ProductsTableComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -51,8 +52,8 @@ import { PRODUCTS_ROUTES } from './products.routing';
     DropdownModule,
     DynamicDialogModule,
     ConfirmDialogModule,
+    TooltipModule,
   ],
-  providers:[DialogService, ConfirmationService],
+  providers: [DialogService, ConfirmationService],
 })
-
 export class ProductsModule {}
