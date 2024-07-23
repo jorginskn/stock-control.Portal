@@ -88,7 +88,7 @@
             <th>
               <div class="flex justify-content-between align-content-center">
                 <p-button styleClass="p-button-info" icon="pi pi-plus" label="Adicionar" pTooltip="Adicionar produto"
-                  tooltipPosition="top">
+                  tooltipPosition="top" (onClick)="handleProductEvent(addProductEvent)">
                 </p-button>
               </div>
             </th>
@@ -112,7 +112,8 @@
                           pRipple icon="pi pi-pencil"
                           class="p-button-rounded p-button-warning"
                           pTooltip="Editar produto"
-                          tooltipPosition="top">
+                          tooltipPosition="top"
+                          (click)="handleProductEvent(editProductEvent, products.productId)">
 
                   </button>
                   <button pButton

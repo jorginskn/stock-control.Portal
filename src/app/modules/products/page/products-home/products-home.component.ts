@@ -5,6 +5,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { GetAllProductsResponse } from 'src/app/models/interfaces/products/request/GetAllProductsResponse';
 import { MessageService } from 'primeng/api';
+import { EventAction } from 'src/app/models/interfaces/event/eventAction';
 
 @Component({
   selector: 'app-products-home',
@@ -39,7 +40,6 @@ export class ProductsHomeComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (response) => {
-          console.log(response)
           if (response.length > 0) {
             this.productList = response;
           }
@@ -55,6 +55,12 @@ export class ProductsHomeComponent implements OnInit, OnDestroy {
           this.router.navigate(['/dashboard']);
         },
       });
+  }
+
+  handleProductAction(event: EventAction): void {
+    if (event) {
+      console.log('Dados do evento recebido', event);
+    }
   }
 
   ngOnDestroy(): void {
