@@ -12,8 +12,7 @@ export class ProductsDataTransferService {
   constructor() {}
 
   setProductsDatas(products: Array<GetAllProductsResponse>): void {
-    debugger
-    if (products) {
+     if (products) {
       this.productsDataEmitter$.next(products);
       this.getProductsDatas();
     }

@@ -72,7 +72,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   onSubmitsignUp(): void {
-    debugger;
     if (this.signupForm.value && this.signupForm.valid) {
       this.authService
         .signupUser(this.signupForm.value as SignupUserRequest)

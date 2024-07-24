@@ -113,14 +113,14 @@
                           class="p-button-rounded p-button-warning"
                           pTooltip="Editar produto"
                           tooltipPosition="top"
-                          (click)="handleProductEvent(editProductEvent, products.productId)">
+                          (click)="handleProductEvent(editProductEvent, products.productId, products.name)">
 
                   </button>
                   <button pButton
                           pRipple icon="pi pi-trash"
                           class="p-button-rounded p-button-danger"
                           pTooltip="Remover produto"
-                          tooltipPosition="top">
+                          tooltipPosition="top" (click)="handleDeleteProduct(deleteProductEvent, products.productId, products.name)">
 
                   </button>
               </div>

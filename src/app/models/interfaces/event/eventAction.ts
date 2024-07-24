@@ -1,4 +1,5 @@
 export interface EventAction{
   action: string;
-  id?:number;
+  id:number;
+  name?: string;
 }
