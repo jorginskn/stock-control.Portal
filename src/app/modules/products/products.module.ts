@@ -25,9 +25,10 @@ import { ProductsHomeComponent } from './page/products-home/products-home.compon
 import { RouterModule } from '@angular/router';
 import { PRODUCTS_ROUTES } from './products.routing';
 import { ProductsTableComponent } from './components/products-table/products-table.component';
+import { ProductFormComponent } from './components/product-form/product-form.component';
 
 @NgModule({
-  declarations: [ProductsHomeComponent, ProductsTableComponent],
+  declarations: [ProductsHomeComponent, ProductsTableComponent, ProductFormComponent],
   imports: [
     CommonModule,
     FormsModule,

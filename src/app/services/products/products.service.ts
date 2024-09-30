@@ -1,8 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { CreateProductRequest } from 'api/stock-api/src/models/interfaces/product/CreateProductRequest';
 import { CookieService } from 'ngx-cookie-service';
 import { map, Observable } from 'rxjs';
 import { GetAllProductsResponse } from 'src/app/models/interfaces/products/request/GetAllProductsResponse';
+import { CreateProductResponse } from 'src/app/models/interfaces/products/response/CreateProductResponse';
 import { DeleteProductResponse } from 'src/app/models/interfaces/products/response/DeleteProductResponse';
 import { enviroment } from 'src/environments/environment';
 
@@ -28,7 +30,13 @@ export class ProductsService {
       .pipe(map((product) => product));
   }
 
-  deleteProduct(productId: number):Observable<DeleteProductResponse> {
-     return this.http.delete<DeleteProductResponse>(`${this.API_URL}/products/${productId}`) ;
+  createProduct(createProductData: CreateProductRequest):Observable<CreateProductResponse> {
+    return this.http.post<CreateProductResponse>(`${this.API_URL}/products`, createProductData)
+  }
+
+  deleteProduct(productId: number): Observable<DeleteProductResponse> {
+    return this.http.delete<DeleteProductResponse>(
+      `${this.API_URL}/products/${productId}`
+    );
   }
 }
