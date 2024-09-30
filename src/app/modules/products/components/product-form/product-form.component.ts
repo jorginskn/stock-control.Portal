@@ -2,7 +2,6 @@ import { CreateProductRequest } from './../../../../models/interfaces/products/r
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CreateProductRequest } from 'api/stock-api/src/models/interfaces/product/CreateProductRequest';
 import { MessageService } from 'primeng/api';
 import { Subject, takeUntil } from 'rxjs';
 import { GetCategoriesResponse } from 'src/app/models/interfaces/categories/responses/GetCategoriesResponse';
